@@ -1,6 +1,6 @@
 import Link from "next/link"
-import Layout from "../components/layout"
-import styles from '../styles/404.module.css'
+import Layout from "@/components/layout"
+import styles from '@/styles/404.module.css'
 import Image from 'next/image'
 
 const NotFoundPage = () => {
