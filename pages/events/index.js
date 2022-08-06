@@ -1,9 +1,11 @@
-const index = () => {
+import Layout from "../../components/layout"
+
+const EventsPage = () => {
   return (
-    <div>
+    <Layout>
       <h1>events</h1>
-    </div>
+    </Layout>
   )
 }
 
-export default index
+export default EventsPage
