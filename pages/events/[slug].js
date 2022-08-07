@@ -1,11 +1,62 @@
 import Layout from '@/components/layout'
 import { API_URL } from '@/config/index'
+import styles from '@/styles/Event.module.css'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const EventPage = ({ evt }) => {
+  const deleteEvent = () => {
+    console.log('deleted')
+  }
 
   return (
     <Layout>
-      <h1>{evt.name}</h1>
+      <div className={styles.event}>
+        <div className={styles.controls}>
+          <Link href={`events/edit/${evt.id}`}>
+            <a>
+              <Image src='/images/icon/edit.png'
+                width={16}
+                height={16}
+                alt='edit' />Edit Event
+            </a>
+          </Link>
+          <a href="#" className={styles.delete} onClick={deleteEvent}>
+            <Image
+              src='/images/icon/remove.png'
+              height={16}
+              width={16}
+              alt='delete' />Delete Event
+          </a>
+        </div>
+
+        <span>
+          {evt.date} at {evt.time}
+        </span>
+        <h1>{evt.name}</h1>
+        {evt.image && (
+          <div className={styles.image}>
+            <Image
+              src={evt.image}
+              width={960}
+              height={600}
+              alt='event-image' />
+          </div>
+        )}
+
+        <h3>Performers:</h3>
+        <p>{evt.performers}</p>
+        <h3>Description:</h3>
+        <p>{evt.description}</p>
+        <h3>{evt.venue}</h3>
+        <p>{evt.address}</p>
+
+        <Link href='/events'>
+          <a className={styles.back}>
+            {'<'} Go Back
+          </a>
+        </Link>
+      </div>
     </Layout>
   )
 }

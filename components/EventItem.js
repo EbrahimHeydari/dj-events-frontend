@@ -9,7 +9,8 @@ const EventItem = ({ evt }) => {
         <Image
           src={evt.image ? evt.image : '/images/event-default.png'}
           width={170}
-          height={100} />
+          height={100} 
+          alt='default-image' />
       </div>
 
       <div className={styles.info}>

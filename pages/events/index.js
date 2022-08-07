@@ -7,10 +7,7 @@ const EventsPage = ({ events }) => {
     <Layout>
       <h1>Events</h1>
       {events.length === 0 && <h3>No Events To Show</h3>}
-
-      {events.map(evt => (
-        <EventItem key={evt.id} evt={evt} />
-      ))}
+      {events.map(evt => <EventItem key={evt.id} evt={evt} />)}
     </Layout>
   )
 }
