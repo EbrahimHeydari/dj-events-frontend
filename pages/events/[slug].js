@@ -4,7 +4,7 @@ import styles from '@/styles/Event.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const EventPage = ({ evt }) => {
+const EventPage = ({ evt, evt: {attributes }}) => {
   const deleteEvent = () => {
     console.log('deleted')
   }
@@ -31,13 +31,13 @@ const EventPage = ({ evt }) => {
         </div>
 
         <span>
-          {evt.date} at {evt.time}
+          {new Date(attributes.date).toLocaleDateString('en-US')} at {attributes.time}
         </span>
-        <h1>{evt.name}</h1>
-        {evt.image && (
+        <h1>{attributes.name}</h1>
+        {attributes.image && (
           <div className={styles.image}>
             <Image
-              src={evt.image}
+              src={attributes.image.data.attributes.formats.small.url}
               width={960}
               height={600}
               alt='event-image' />
@@ -45,11 +45,11 @@ const EventPage = ({ evt }) => {
         )}
 
         <h3>Performers:</h3>
-        <p>{evt.performers}</p>
+        <p>{attributes.performers}</p>
         <h3>Description:</h3>
-        <p>{evt.description}</p>
-        <h3>{evt.venue}</h3>
-        <p>{evt.address}</p>
+        <p>{attributes.description}</p>
+        <h3>{attributes.venue}</h3>
+        <p>{attributes.address}</p>
 
         <Link href='/events'>
           <a className={styles.back}>
@@ -67,8 +67,8 @@ export async function getStaticPaths() {
   const res = await fetch(`${API_URL}/api/events`)
   const events = await res.json()
 
-  const paths = events.map(evt => ({
-    params: { slug: evt.slug }
+  const paths = events.data.map(evt => ({
+    params: { slug: evt.attributes.slug }
   }))
 
   return {
@@ -78,12 +78,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const res = await fetch(`${API_URL}/api/events/${slug}`)
+  const res = await fetch(`${API_URL}/api/events?slug=${slug}&populate=%2A`)
   const events = await res.json()
+
+  const evt = events.data.find(item => item.attributes.slug == slug)
 
   return {
     props: {
-      evt: events[0]
+      evt
     }
   }
 }
