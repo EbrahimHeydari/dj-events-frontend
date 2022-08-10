@@ -8,7 +8,7 @@ const NotFoundPage = () => {
     <Layout title='Page Not Found!'>
       <div className={styles.error}>
         <h1>
-          <Image src='/images/exclamation.svg'
+          <Image src='/images/icon/exclamation.svg'
             width={40}
             height={40}
             alt='exclumation' /> 404

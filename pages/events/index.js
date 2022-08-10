@@ -1,4 +1,4 @@
-import EventItem from "@/components/eventItem"
+import EventItem from "@/components/EventItem"
 import Layout from "@/components/layout"
 import { API_URL } from "@/config/index"
 

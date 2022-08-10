@@ -1,10 +1,9 @@
-import EventItem from "@/components/eventItem"
+import EventItem from "@/components/EventItem"
 import Layout from "@/components/layout"
 import { API_URL } from "@/config/index"
 import Link from "next/link"
 
 const HomePage = ({ events }) => {
-  
   return (
     <Layout>
       <h1>Upcoming Events</h1>
@@ -25,7 +24,7 @@ export default HomePage
 
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events?_sort=date:ASC_limit=3&populate=%2A`)
+  const res = await fetch(`${API_URL}/api/events?sort=date:asc&pagination[limit]=4&populate=%2A`)
   const events = await res.json()
 
   return {
