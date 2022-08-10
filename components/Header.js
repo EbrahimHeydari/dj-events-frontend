@@ -11,13 +11,18 @@ export default function Header() {
         </Link>
       </div>
 
-      <Search/>
+      <Search />
 
       <nav>
         <ul>
           <li>
             <Link href='/events'>
               <a>Events</a>
+            </Link>
+          </li>
+          <li>
+            <Link href='/events/add'>
+              <a>Add Event</a>
             </Link>
           </li>
         </ul>
