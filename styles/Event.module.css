@@ -21,6 +21,11 @@
   top: 0;
 }
 
+.controls span {
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
 .delete {
   margin-left: 20px;
   color: crimson;
