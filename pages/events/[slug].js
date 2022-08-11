@@ -4,7 +4,7 @@ import styles from '@/styles/Event.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const EventPage = ({ evt, evt: {attributes }}) => {
+const EventPage = ({ evt, evt: { attributes } }) => {
   const deleteEvent = () => {
     console.log('deleted')
   }
@@ -37,7 +37,7 @@ const EventPage = ({ evt, evt: {attributes }}) => {
         {attributes.image && (
           <div className={styles.image}>
             <Image
-              src={attributes.image.data.attributes.formats.small.url}
+              src={attributes.image.data ? attributes.image.data.attributes.formats.thumbnail.url : '/images/event-default.png'}
               width={960}
               height={600}
               alt='event-image' />
@@ -78,7 +78,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const res = await fetch(`${API_URL}/api/events?slug=${slug}&populate=%2A`)
+  const res = await fetch(`${API_URL}/api/events?filters[slug]=${slug}&populate=%2A`)
   const events = await res.json()
 
   const evt = events.data.find(item => item.attributes.slug == slug)
