@@ -18,10 +18,8 @@ const EventPage = ({ evt, evt: { attributes } }) => {
 
       const data = await res.json()
 
-      if (!res.ok) {
-        toast.error(data.message ? data.message : 'Something Went Wrong!')
-      }
-
+      if (!res.ok)
+        toast.error(data ? data.message : 'Something Went Wrong!')
       else
         router.push('/events')
     }
@@ -31,7 +29,7 @@ const EventPage = ({ evt, evt: { attributes } }) => {
     <Layout>
       <div className={styles.event}>
         <div className={styles.controls}>
-          <Link href={`events/edit/${evt.id}`}>
+          <Link href={`/events/edit/${evt.id}`}>
             <a>
               <Image src='/images/icon/edit.png'
                 width={18}
@@ -58,7 +56,7 @@ const EventPage = ({ evt, evt: { attributes } }) => {
         {attributes.image && (
           <div className={styles.image}>
             <Image
-              src={attributes.image.data ? attributes.image.data.attributes.formats.thumbnail.url : '/images/event-default.png'}
+              src={attributes.image.data ? attributes.image.data.attributes.formats.small.url : '/images/event-default.png'}
               width={960}
               height={600}
               alt='event-image' />

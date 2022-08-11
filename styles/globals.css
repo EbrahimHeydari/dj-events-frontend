@@ -59,6 +59,11 @@ h1 {
   cursor: pointer;
 }
 
+.btn-secondary span {
+  margin-left: 5px;
+  margin-top: -2px !important;
+}
+
 .btn-secondary:hover {
   opacity: 0.8;
 }
