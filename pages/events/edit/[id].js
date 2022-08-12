@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { API_URL } from '@/config/index'
 import Image from "next/image"
 import Modal from '@/components/Modal'
+import ImageUpload from '@/components/ImageUpload'
 
 const EditEventPage = ({ evt, evt: { attributes } }) => {
   const router = useRouter()
@@ -26,6 +27,16 @@ const EditEventPage = ({ evt, evt: { attributes } }) => {
   )
 
   const [showModal, setShowModal] = useState(false)
+
+  const imageUploaded = async id => {
+    const res = await fetch(`${API_URL}/api/events?populate=%2A`)
+    const events = await res.json()
+    const evt = events.data.find(event => event.id === Number(id))
+
+    setImagePreview(evt.attributes.image.data.attributes.formats.thumbnail.url)
+    setShowModal(false)
+    toast.success('Successfully Changed')
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -144,7 +155,7 @@ const EditEventPage = ({ evt, evt: { attributes } }) => {
       </button>
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        Image Upload
+        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} />
       </Modal>
     </Layout>
   )
