@@ -7,6 +7,7 @@ import { useState } from "react"
 import { toast, ToastContainer } from 'react-toastify'
 import { API_URL } from '@/config/index'
 import Image from "next/image"
+import Modal from '@/components/Modal'
 
 const EditEventPage = ({ evt, evt: { attributes } }) => {
   const router = useRouter()
@@ -23,6 +24,8 @@ const EditEventPage = ({ evt, evt: { attributes } }) => {
   const [imagePreview, setImagePreview] = useState(
     attributes.image.data ? attributes.image.data.attributes.formats.thumbnail.url : null
   )
+
+  const [showModal, setShowModal] = useState(false)
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -135,10 +138,14 @@ const EditEventPage = ({ evt, evt: { attributes } }) => {
           <p>No Image Uploaded...</p>
         </div>}
 
-      <button className="btn-secondary">
+      <button className="btn-secondary" onClick={() => setShowModal(true)}>
         <Image src='/images/icon/image.png' width={16} height={16} />
         <span>Set Image</span>
       </button>
+
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        Image Upload
+      </Modal>
     </Layout>
   )
 }
