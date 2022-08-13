@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Layout from "@/components/layout"
+import Layout from "@/components/Layout"
 import styles from '@/styles/404.module.css'
 import Image from 'next/image'
 

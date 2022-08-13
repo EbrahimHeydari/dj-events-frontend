@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from '@/styles/Header.module.css'
 import Search from './Search'
+import Image from 'next/image'
 
 export default function Header() {
   return (
@@ -23,6 +24,14 @@ export default function Header() {
           <li>
             <Link href='/events/add'>
               <a>Add Event</a>
+            </Link>
+          </li>
+          <li>
+            <Link href='/account/login'>
+              <a className='btn-secondary btn-icon'>
+                <Image src='/images/icon/login.png' height={20} width={16} />
+                <span>Login</span>
+              </a>
             </Link>
           </li>
         </ul>

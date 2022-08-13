@@ -1,5 +1,5 @@
 import EventItem from "@/components/EventItem"
-import Layout from "@/components/layout"
+import Layout from "@/components/Layout"
 import Pagination from "@/components/Pagination"
 import { API_URL, PER_PAGE } from "@/config/index"
 const qs = require('qs')
