@@ -1,10 +1,11 @@
 import 'react-toastify/dist/ReactToastify.css'
 import styles from '@/styles/AuthForm.module.css'
 import Layout from '@/components/Layout'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
 import Link from 'next/link'
+import AuthContext from '@/context/AuthContext'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
@@ -12,18 +13,22 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
 
+  const { register, error } = useContext(AuthContext)
+
   const handleSubmit = e => {
-    if(password !== passwordConfirm) {
+    e.preventDefault()
+
+    if (password !== passwordConfirm) {
       toast.error('Password do not match!')
+      return
     }
 
-    e.preventDefault()
-    console.log({ email, password, username })
+    register({ email, password, username })
   }
 
   return (
     <Layout title='User Registeration'>
-    <ToastContainer theme='colored'/>
+      <ToastContainer theme='colored' />
       <div className={styles.auth}>
         <h1>
           <Image src='/images/icon/user.png' height={32} width={32} />
@@ -49,7 +54,7 @@ const RegisterPage = () => {
           <input type="submit" value="Login" className='btn' />
           <p>
             Already Have an account?
-            <Link href='/account/login'> Login</Link>
+            <Link href='/account/login'> Register</Link>
           </p>
         </form>
       </div>
