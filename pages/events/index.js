@@ -22,8 +22,6 @@ export default EventsPage
 export async function getServerSideProps({ query: { page = 1 } }) {
   const query = qs.stringify({
     sort: ['date:asc'],
-    filters: {
-    },
     populate: '*',
     pagination: {
       pageSize: PER_PAGE,

@@ -57,7 +57,7 @@ const RegisterPage = () => {
           <input type="submit" value="Register" className='btn' />
           <p>
             Already Have an account?
-            <Link href='/account/login'> Register</Link>
+            <Link href='/account/login'> Login</Link>
           </p>
         </form>
       </div>
