@@ -6,8 +6,9 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { toast, ToastContainer } from 'react-toastify'
 import { API_URL } from '@/config/index'
+import { parseCookies } from '@/helpers/index'
 
-const AddEventPage = () => {
+const AddEventPage = ({ token }) => {
   const router = useRouter()
   const [values, setValues] = useState({
     name: '',
@@ -31,14 +32,19 @@ const AddEventPage = () => {
       const res = await fetch(`${API_URL}/api/events/`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ data: values })
       })
       const evt = await res.json()
 
       if (!res.ok) {
-        toast.error(evt ? evt.error.message: 'Something Went Wrong!')
+        if (res.status == 403 || res.status == 401) {
+          toast.error('No Token Included')
+          return
+        }
+        toast.error(evt ? evt.error.message : 'Something Went Wrong!')
       }
       else {
         router.push(`/events/${evt.data.attributes.slug}`)
@@ -128,3 +134,13 @@ const AddEventPage = () => {
 }
 
 export default AddEventPage
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req)
+
+  return {
+    props: {
+      token
+    }
+  }
+}
