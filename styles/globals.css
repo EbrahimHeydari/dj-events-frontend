@@ -80,3 +80,8 @@ h1 {
 .btn-icon svg {
   margin-right: 5px;
 }
+
+div.leaflet-bottom.leaflet-right {
+  display: none !important;
+  overflow: hidden;
+}

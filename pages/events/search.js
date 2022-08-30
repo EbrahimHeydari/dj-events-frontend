@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import qs from 'qs'
 
-const searchPage = ({ events }) => {
+const SearchPage = ({ events }) => {
   const router = useRouter()
 
   return (
@@ -25,7 +25,7 @@ const searchPage = ({ events }) => {
   )
 }
 
-export default searchPage
+export default SearchPage
 
 export async function getServerSideProps({ query: { term } }) {
   const query = qs.stringify({

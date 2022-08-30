@@ -39,7 +39,7 @@ export default function Header() {
               </li>
               <li>
                 <button className='btn-secondary btn-icon' onClick={logout}>
-                  <Image src='/images/icon/logout.png' width={16} height={16} />
+                  <Image src='/images/icon/logout.png' width={16} height={16} alt="logout" />
                   <span>Logout</span>
                 </button>
               </li>
@@ -48,7 +48,7 @@ export default function Header() {
             <li>
               <Link href='/account/login'>
                 <a className='btn-secondary btn-icon'>
-                  <Image src='/images/icon/login.png' height={20} width={16} />
+                  <Image src='/images/icon/login.png' height={20} width={16} alt='login' />
                   <span>Login</span>
                 </a>
               </Link>

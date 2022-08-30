@@ -34,7 +34,7 @@ const RegisterPage = () => {
       <ToastContainer theme='colored' />
       <div className={styles.auth}>
         <h1>
-          <Image src='/images/icon/user.png' height={32} width={32} />
+          <Image src='/images/icon/user.png' height={32} width={32} alt='user' />
           <span>Register</span>
         </h1>
         <form onSubmit={handleSubmit}>

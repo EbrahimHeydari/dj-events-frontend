@@ -151,18 +151,18 @@ const EditEventPage = ({ evt, evt: { attributes }, token }) => {
       </form>
 
       <h2>Event Image Preview</h2>
-      {imagePreview ? <Image src={imagePreview} height={100} width={170} />
+      {imagePreview ? <Image src={imagePreview} height={100} width={170} alt='preview' />
         : <div>
           <p>No Image Uploaded...</p>
         </div>}
 
       <button className="btn-secondary" onClick={() => setShowModal(true)}>
-        <Image src='/images/icon/image.png' width={16} height={16} />
+        <Image src='/images/icon/image.png' width={16} height={16} alt='picture' />
         <span>Set Image</span>
       </button>
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} token={token} />
+        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} token={token} alt='upload' />
       </Modal>
     </Layout>
   )

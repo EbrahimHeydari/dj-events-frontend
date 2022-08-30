@@ -26,7 +26,7 @@ const LoginPage = () => {
       <ToastContainer theme='colored' />
       <div className={styles.auth}>
         <h1>
-          <Image src='/images/icon/user.png' height={32} width={32} />
+          <Image src='/images/icon/user.png' height={32} width={32} alt='login' />
           <span>Log In</span>
         </h1>
         <form onSubmit={handleSubmit}>
@@ -40,7 +40,7 @@ const LoginPage = () => {
           </div>
           <input type="submit" value="Login" className='btn' />
           <p>
-            Don't Have an account?
+            Dont Have an account?
             <Link href='/account/register'> Register</Link>
           </p>
         </form>

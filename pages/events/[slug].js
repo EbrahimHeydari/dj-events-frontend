@@ -1,9 +1,11 @@
-import Layout from '@/components/Layout'
-import { API_URL } from '@/config/index'
+import 'react-toastify/dist/ReactToastify.css'
 import styles from '@/styles/Event.module.css'
+import EventMap from '@/components/EventMap/'
+import { API_URL } from '@/config/index'
+import Layout from '@/components/Layout'
 import Image from 'next/image'
 import Link from 'next/link'
-import 'react-toastify/dist/ReactToastify.css'
+import 'leaflet/dist/leaflet.css';
 
 const EventPage = ({ evt: { attributes } }) => {
   return (
@@ -30,6 +32,8 @@ const EventPage = ({ evt: { attributes } }) => {
         <h3>{attributes.venue}</h3>
         <p>{attributes.address}</p>
 
+        <EventMap />
+
         <Link href='/events'>
           <a className={styles.back}>
             {'<'} Go Back
@@ -52,7 +56,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: true
+    fallback: false
   }
 }
 
