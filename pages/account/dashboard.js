@@ -3,12 +3,28 @@ import Layout from "@/components/Layout"
 import { API_URL } from "@/config/index"
 import { parseCookies } from "@/helpers/index"
 import styles from '@/styles/Dashboard.module.css'
+import { useRouter } from "next/router"
 
-const DashboardPage = ({ events }) => {
+const DashboardPage = ({ events, token }) => {
+  const router = useRouter()
   const { data } = events.data.attributes
 
-  const deleteEvent = id => {
-    console.log(id)
+  const deleteEvent = async id => {
+    if (confirm('Are you sure?')) {
+      const res = await fetch(`${API_URL}/api/events/${id}`, {
+        method: 'delete',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      const data = await res.json()
+
+      if (!res.ok)
+        toast.error(data ? data.message : 'Something Went Wrong!')
+      else
+        router.reload()
+    }
   }
 
   return (
@@ -41,7 +57,8 @@ export async function getServerSideProps({ req }) {
 
   return {
     props: {
-      events
+      events,
+      token
     }
   }
 }

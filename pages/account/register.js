@@ -1,11 +1,11 @@
 import 'react-toastify/dist/ReactToastify.css'
 import styles from '@/styles/AuthForm.module.css'
-import Layout from '@/components/Layout'
 import { useContext, useEffect, useState } from 'react'
-import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
-import Link from 'next/link'
 import AuthContext from '@/context/AuthContext'
+import Layout from '@/components/Layout'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')

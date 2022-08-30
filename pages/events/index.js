@@ -18,7 +18,6 @@ const EventsPage = ({ events, page, total }) => {
 
 export default EventsPage
 
-
 export async function getServerSideProps({ query: { page = 1 } }) {
   const query = qs.stringify({
     sort: ['date:asc'],

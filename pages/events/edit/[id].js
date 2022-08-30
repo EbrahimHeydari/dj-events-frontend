@@ -1,16 +1,17 @@
 import 'react-toastify/dist/ReactToastify.css'
 import Layout from "@/components/Layout"
 import styles from '@/styles/Form.module.css'
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { toast, ToastContainer } from 'react-toastify'
-import { API_URL } from '@/config/index'
-import Image from "next/image"
-import Modal from '@/components/Modal'
 import ImageUpload from '@/components/ImageUpload'
+import { parseCookies } from '@/helpers/index'
+import { API_URL } from '@/config/index'
+import Modal from '@/components/Modal'
+import Image from "next/image"
+import Link from "next/link"
 
-const EditEventPage = ({ evt, evt: { attributes } }) => {
+const EditEventPage = ({ evt, evt: { attributes }, token }) => {
   const router = useRouter()
   const [values, setValues] = useState({
     name: attributes.name,
@@ -43,19 +44,25 @@ const EditEventPage = ({ evt, evt: { attributes } }) => {
 
     // Validation
     const hasEmptyField = Object.values(values).some(element => element.trim() === '')
-    if (hasEmptyField)
+    if (hasEmptyField) {
       toast.error('please fill all fields')
+    }
 
     else {
       const res = await fetch(`${API_URL}/api/events/${evt.id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ data: values })
       })
 
       if (!res.ok) {
+        if (res.status == 401 || res.status == 403) {
+          toast.error('Unauthorized')
+          return
+        }
         toast.error('Something Went Wrong!')
       }
       else {
@@ -155,7 +162,7 @@ const EditEventPage = ({ evt, evt: { attributes } }) => {
       </button>
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} />
+        <ImageUpload evtId={evt.id} imageUploaded={imageUploaded} token={token} />
       </Modal>
     </Layout>
   )
@@ -165,13 +172,17 @@ export default EditEventPage
 
 
 export async function getServerSideProps({ params: { id }, req }) {
+  const { token } = parseCookies(req)
+
   const res = await fetch(`${API_URL}/api/events?populate=%2A`)
   const events = await res.json()
+
   const evt = events.data.find(event => event.id === Number(id))
 
   return {
     props: {
-      evt
+      evt,
+      token
     }
   }
 }
