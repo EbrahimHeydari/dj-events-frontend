@@ -8,6 +8,7 @@ import { useRouter } from "next/router"
 const DashboardPage = ({ events, token }) => {
   const router = useRouter()
   const { data } = events.data.attributes
+  console.log(token);
 
   const deleteEvent = async id => {
     if (confirm('Are you sure?')) {
